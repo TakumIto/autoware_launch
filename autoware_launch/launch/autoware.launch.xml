@@ -45,6 +45,9 @@
   <arg name="perception_mode" default="lidar" description="select perception mode. camera_lidar_radar_fusion, camera_lidar_fusion, lidar_radar_fusion, lidar, radar"/>
   <arg name="traffic_light_recognition/enable_fine_detection" default="true" description="enable traffic light fine detection"/>
 
+  <!-- Optional parameters for JARI tool-->  
+  <arg name="use_abdrobot" default="true"/>
+
   <!-- Global parameters -->
   <group scoped="false">
     <include file="$(find-pkg-share global_parameter_loader)/launch/global_params.launch.py">
@@ -128,4 +131,12 @@
       respawn="$(var rviz_respawn)"
     />
   </group>
+
+  <!-- AB Dynamics Robot CAN IF -->  
+  <group>
+    <include file="$(find-pkg-share abd_robot_can_interface)/launch/abd_robot_can_interface.launch.xml" if="$(var use_abdrobot)">
+      <arg name="can_device" value="can1" />
+    </include>
+  </group>
+
 </launch>
